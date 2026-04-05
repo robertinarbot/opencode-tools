@@ -41,4 +41,4 @@ The `check-version.yml` workflow runs daily to check for new opencode versions. 
 
 ## GitHub Container Registry
 
-Images are published to: `ghcr.io/<owner>/opencode-tools`
+Images are published to: [ghcr.io/robertinarbot/opencode-tools](https://github.com/robertinarbot/opencode-tools/pkgs/container/opencode-tools)
