@@ -1,0 +1,88 @@
+name: Check for New Opencode Version
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get latest opencode version
+        id: version
+        run: |
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/anomalyco/opencode/releases/latest | jq -r '.tag_name // empty' | sed 's/^v//')
+          if [ -z "$LATEST_VERSION" ]; then
+            echo "Failed to fetch latest version"
+            exit 1
+          fi
+          echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Get published versions
+        uses: actions/github-script@v7
+        id: published
+        with:
+          script: |
+            const { data: packages } = await github.rest.container.getAllPackages({
+              package_type: 'container',
+              per_page: 100
+            });
+            const basePackage = packages.find(p => p.name === 'opencode-tools');
+            if (!basePackage) {
+              return { versions: [] };
+            }
+            const { data: versions } = await github.rest.container.getAllPackageVersions({
+              package_type: 'container',
+              package_name: 'opencode-tools',
+              per_page: 100
+            });
+            return { versions: versions.map(v => v.metadata.tags).flat().filter(t => t.match(/^\d+\.\d+\.\d+$/)) };
+
+      - name: Check if new version exists
+        id: compare
+        run: |
+          LATEST="${{ steps.version.outputs.latest }}"
+          PUBLISHED="${{ steps.published.outputs.versions }}"
+          
+          if echo "$PUBLISHED" | grep -q "^${LATEST}$"; then
+            echo "new_version=false" >> $GITHUB_OUTPUT
+            echo "No new version found. Latest: $LATEST"
+          else
+            echo "new_version=true" >> $GITHUB_OUTPUT
+            echo "New version found: $LATEST"
+          fi
+
+      - name: Trigger build workflow
+        if: steps.compare.outputs.new_version == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'build-push.yml',
+              ref: 'main',
+              inputs: {
+                version: '${{ steps.version.outputs.latest }}'
+              }
+            })
+
+      - name: Create issue for new version
+        if: steps.compare.outputs.new_version == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'New Opencode Version Available: ${{ steps.version.outputs.latest }}',
+              body: `A new opencode version **${{ steps.version.outputs.latest }}** has been detected and the build workflow has been triggered.`
+            })

@@ -1,0 +1,42 @@
+version: '3.8'
+
+images:
+  base:
+    build:
+      context: .
+      dockerfile: base.Dockerfile
+    tags:
+      - opencode-tools/base:latest
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+  go:
+    build:
+      context: .
+      dockerfile: go.Dockerfile
+    tags:
+      - opencode-tools/go:latest
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+  java:
+    build:
+      context: .
+      dockerfile: java.Dockerfile
+    tags:
+      - opencode-tools/java:latest
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+  javascript:
+    build:
+      context: .
+      dockerfile: javascript.Dockerfile
+    tags:
+      - opencode-tools/javascript:latest
+    platforms:
+      - linux/amd64
+      - linux/arm64
