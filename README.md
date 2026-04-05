@@ -10,6 +10,8 @@ Docker images for opencode with pre-installed build tools.
 | `go` | Go build tools |
 | `java` | Java, Maven, Gradle |
 | `javascript` | Node.js, npm, yarn |
+| `rust` | Rust toolchain |
+| `all` | All tools (Go, Java, JavaScript, Rust) |
 
 ## Usage
 
