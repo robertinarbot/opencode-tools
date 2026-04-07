@@ -15,9 +15,7 @@ RUN apk add --no-cache \
     npm \
     yarn \
     rust \
-    cargo \
-    clippy \
-    rustfmt
+    cargo
 
 RUN adduser -D opencode && \
     mkdir -p /home/opencode/.ssh && \

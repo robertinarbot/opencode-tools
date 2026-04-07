@@ -6,9 +6,7 @@ RUN apk add --no-cache \
     curl \
     ca-certificates \
     rust \
-    cargo \
-    clippy \
-    rustfmt
+    cargo
 
 RUN adduser -D opencode && \
     mkdir -p /home/opencode/.ssh && \
