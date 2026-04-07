@@ -132,13 +132,14 @@ jobs:
 
       - name: Update README with version
         run: |
-          sed -i 's/v1\.0\.0/${{ steps.version.outputs.version }}/g' README.md
-          sed -i 's-opencode-tools/base:v[0-9.]*-opencode-tools/base:${{ steps.version.outputs.version }}-g' README.md
-          sed -i 's-opencode-tools/go:v[0-9.]*-opencode-tools/go:${{ steps.version.outputs.version }}-g' README.md
-          sed -i 's-opencode-tools/java:v[0-9.]*-opencode-tools/java:${{ steps.version.outputs.version }}-g' README.md
-          sed -i 's-opencode-tools/javascript:v[0-9.]*-opencode-tools/javascript:${{ steps.version.outputs.version }}-g' README.md
-          sed -i 's-opencode-tools/rust:v[0-9.]*-opencode-tools/rust:${{ steps.version.outputs.version }}-g' README.md
-          sed -i 's-opencode-tools/all:v[0-9.]*-opencode-tools/all:${{ steps.version.outputs.version }}-g' README.md
+          VERSION="${{ steps.version.outputs.version }}"
+          sed -i "s|v1\.0\.0|$VERSION|g" README.md
+          sed -i "s|opencode-tools/base:v[0-9.]*|opencode-tools/base:$VERSION|g" README.md
+          sed -i "s|opencode-tools/go:v[0-9.]*|opencode-tools/go:$VERSION|g" README.md
+          sed -i "s|opencode-tools/java:v[0-9.]*|opencode-tools/java:$VERSION|g" README.md
+          sed -i "s|opencode-tools/javascript:v[0-9.]*|opencode-tools/javascript:$VERSION|g" README.md
+          sed -i "s|opencode-tools/rust:v[0-9.]*|opencode-tools/rust:$VERSION|g" README.md
+          sed -i "s|opencode-tools/all:v[0-9.]*|opencode-tools/all:$VERSION|g" README.md
 
       - name: Commit and push README
         uses: EndBug/add-and-commit@v9
