@@ -1,4 +1,4 @@
-FROM ghcr.io/anomalyco/opencode:latest
+FROM opencode-tools/base:latest
 
 RUN apk add --no-cache \
     git \

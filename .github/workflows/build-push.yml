@@ -116,6 +116,20 @@ jobs:
             org.opencontainers.image.version=${{ steps.version.outputs.version }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
+      - name: Build and push CDK image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./docker
+          file: ./docker/cdk.Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cdk:${{ steps.version.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cdk:latest
+          labels: |
+            org.opencontainers.image.title=opencode-cdk
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+
       - name: Build and push All-in-One image
         uses: docker/build-push-action@v5
         with:
@@ -139,6 +153,7 @@ jobs:
           sed -i "s|opencode-tools/java:v[0-9.]*|opencode-tools/java:$VERSION|g" README.md
           sed -i "s|opencode-tools/javascript:v[0-9.]*|opencode-tools/javascript:$VERSION|g" README.md
           sed -i "s|opencode-tools/rust:v[0-9.]*|opencode-tools/rust:$VERSION|g" README.md
+          sed -i "s|opencode-tools/cdk:v[0-9.]*|opencode-tools/cdk:$VERSION|g" README.md
           sed -i "s|opencode-tools/all:v[0-9.]*|opencode-tools/all:$VERSION|g" README.md
 
       - name: Commit and push README
