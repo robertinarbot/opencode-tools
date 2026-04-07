@@ -1,13 +1,6 @@
-FROM opencode-tools/base:latest
+FROM opencode-tools/javascript:latest
 
-RUN apk add --no-cache \
-    git \
-    curl \
-    ca-certificates \
-    nodejs \
-    npm \
-    yarn
-
-RUN npm install -g aws-cdk
+COPY install/cdk.sh /tmp/install/cdk.sh
+RUN sh /tmp/install/cdk.sh && rm -rf /tmp/install
 
 ENTRYPOINT ["opencode"]

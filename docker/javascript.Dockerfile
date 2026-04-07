@@ -1,11 +1,6 @@
 FROM opencode-tools/base:latest
 
-RUN apk add --no-cache \
-    git \
-    curl \
-    ca-certificates \
-    nodejs \
-    npm \
-    yarn
+COPY install/javascript.sh /tmp/install/javascript.sh
+RUN sh /tmp/install/javascript.sh && rm -rf /tmp/install
 
 ENTRYPOINT ["opencode"]
