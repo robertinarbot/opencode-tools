@@ -8,4 +8,6 @@ RUN apk add --no-cache \
     npm \
     yarn
 
+RUN npm install -g aws-cdk
+
 ENTRYPOINT ["opencode"]

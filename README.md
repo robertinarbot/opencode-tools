@@ -11,6 +11,7 @@ Docker images for opencode with pre-installed build tools.
 | `java` | Java, Maven, Gradle |
 | `javascript` | Node.js, npm, yarn |
 | `rust` | Rust toolchain |
+| `cdk` | AWS CDK |
 | `all` | All tools (Go, Java, JavaScript, Rust) |
 
 ## Usage
@@ -22,6 +23,7 @@ docker pull ghcr.io/robertinarbot/opencode-tools/go:1.3.17
 docker pull ghcr.io/robertinarbot/opencode-tools/java:1.3.17
 docker pull ghcr.io/robertinarbot/opencode-tools/javascript:1.3.17
 docker pull ghcr.io/robertinarbot/opencode-tools/rust:1.3.17
+docker pull ghcr.io/robertinarbot/opencode-tools/cdk:1.3.17
 docker pull ghcr.io/robertinarbot/opencode-tools/all:1.3.17
 ```
 

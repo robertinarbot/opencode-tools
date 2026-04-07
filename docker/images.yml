@@ -40,3 +40,13 @@ images:
     platforms:
       - linux/amd64
       - linux/arm64
+
+  cdk:
+    build:
+      context: .
+      dockerfile: cdk.Dockerfile
+    tags:
+      - opencode-tools/cdk:latest
+    platforms:
+      - linux/amd64
+      - linux/arm64
