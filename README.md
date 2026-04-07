@@ -17,10 +17,12 @@ Docker images for opencode with pre-installed build tools.
 
 ```bash
 # Pull a specific version
-docker pull ghcr.io/<owner>/opencode-tools/base:v1.0.0
-docker pull ghcr.io/<owner>/opencode-tools/go:v1.0.0
-docker pull ghcr.io/<owner>/opencode-tools/java:v1.0.0
-docker pull ghcr.io/<owner>/opencode-tools/javascript:v1.0.0
+docker pull ghcr.io/robertinarbot/opencode-tools/base:v1.0.0
+docker pull ghcr.io/robertinarbot/opencode-tools/go:v1.0.0
+docker pull ghcr.io/robertinarbot/opencode-tools/java:v1.0.0
+docker pull ghcr.io/robertinarbot/opencode-tools/javascript:v1.0.0
+docker pull ghcr.io/robertinarbot/opencode-tools/rust:v1.0.0
+docker pull ghcr.io/robertinarbot/opencode-tools/all:v1.0.0
 ```
 
 ## Building
