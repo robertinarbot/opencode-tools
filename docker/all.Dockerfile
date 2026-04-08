@@ -1,4 +1,5 @@
-FROM opencode-tools/base:latest
+ARG BASE_IMAGE=ghcr.io/anomalyco/opencode:latest
+FROM ${BASE_IMAGE}
 
 COPY install/*.sh /tmp/install/
 RUN for script in /tmp/install/*.sh; do sh "$script"; done && rm -rf /tmp/install

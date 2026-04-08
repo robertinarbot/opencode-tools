@@ -1,4 +1,5 @@
-FROM opencode-tools/base:latest
+ARG BASE_IMAGE=ghcr.io/anomalyco/opencode:latest
+FROM ${BASE_IMAGE}
 
 COPY install/java.sh /tmp/install/java.sh
 RUN sh /tmp/install/java.sh && rm -rf /tmp/install

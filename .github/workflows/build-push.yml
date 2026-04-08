@@ -66,6 +66,7 @@ jobs:
           context: ./docker
           file: ./docker/go.Dockerfile
           push: true
+          build-args: BASE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/base:${{ steps.version.outputs.version }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/go:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/go:latest
@@ -80,6 +81,7 @@ jobs:
           context: ./docker
           file: ./docker/java.Dockerfile
           push: true
+          build-args: BASE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/base:${{ steps.version.outputs.version }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/java:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/java:latest
@@ -94,6 +96,7 @@ jobs:
           context: ./docker
           file: ./docker/javascript.Dockerfile
           push: true
+          build-args: BASE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/base:${{ steps.version.outputs.version }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/javascript:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/javascript:latest
@@ -108,6 +111,7 @@ jobs:
           context: ./docker
           file: ./docker/rust.Dockerfile
           push: true
+          build-args: BASE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/base:${{ steps.version.outputs.version }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/rust:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/rust:latest
@@ -122,6 +126,7 @@ jobs:
           context: ./docker
           file: ./docker/cdk.Dockerfile
           push: true
+          build-args: JS_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/javascript:${{ steps.version.outputs.version }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cdk:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cdk:latest
@@ -136,6 +141,7 @@ jobs:
           context: ./docker
           file: ./docker/all.Dockerfile
           push: true
+          build-args: BASE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/base:${{ steps.version.outputs.version }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/all:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/all:latest
